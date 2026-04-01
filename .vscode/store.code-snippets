@@ -1,0 +1,18 @@
+{
+  "Create zustand store": {
+    "prefix": "czs",
+    "body": [
+      "import { createStore } from '@core-store';",
+      "",
+      "import { $1Store } from './types';",
+      "",
+      "export const use$1Store = createStore<$1Store>(",
+      "  (set) => ({",
+      "    $3",
+      "  }),",
+      "  '$2',",
+      ");",
+    ],
+    "description": "Create request",
+  },
+}

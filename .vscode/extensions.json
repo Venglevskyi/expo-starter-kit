@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "expo.expo-vscode",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "editorconfig.editorconfig"
+  ]
+}
