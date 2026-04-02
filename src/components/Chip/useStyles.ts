@@ -17,7 +17,7 @@ export const useStyles = ({ selected, disabled }: StyleProps) => {
           borderRadius: theme.radius.full,
           borderWidth: 1,
           paddingHorizontal: theme.spacings.x4,
-          gap: theme.spacings.x1,
+          gap: theme.spacings.x4,
           overflow: 'hidden',
           opacity: disabled ? 0.4 : 1,
           backgroundColor: selected ? theme.colors.brand.light : theme.colors.surface.subtle,

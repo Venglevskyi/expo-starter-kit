@@ -41,9 +41,9 @@ const SIZE_CONFIG = {
     paddingVertical: theme.spacings.x2,
   },
   [ButtonSize.Sm]: {
-    height: theme.spacings.x12,
-    paddingHorizontal: theme.spacings.x3,
-    paddingVertical: theme.spacings.x1,
+    height: 40,
+    paddingHorizontal: theme.spacings.x12,
+    paddingVertical: theme.spacings.x4,
   },
 };
 
@@ -55,7 +55,7 @@ export const useStyles = ({ variant, size, fullWidth, disabled }: StyleProps) =>
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: theme.spacings.x1,
+          gap: theme.spacings.x4,
           borderRadius: theme.radius.full,
           alignSelf: fullWidth ? 'stretch' : 'flex-start',
           opacity: disabled ? 0.4 : 1,
