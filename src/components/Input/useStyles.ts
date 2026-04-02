@@ -17,7 +17,7 @@ export const useStyles = ({ focused, hasError, disabled }: StyleProps) => {
     () =>
       StyleSheet.create({
         container: {
-          gap: theme.spacings.x1,
+          gap: theme.spacings.x4,
           opacity: disabled ? 0.4 : 1,
         },
         field: {
@@ -28,7 +28,7 @@ export const useStyles = ({ focused, hasError, disabled }: StyleProps) => {
           borderWidth: 1,
           borderColor: getBorderColor(focused, hasError),
           backgroundColor: theme.colors.background,
-          paddingHorizontal: theme.spacings.x3,
+          paddingHorizontal: theme.spacings.x12,
           gap: theme.spacings.x2,
           overflow: 'hidden',
         },
@@ -40,7 +40,7 @@ export const useStyles = ({ focused, hasError, disabled }: StyleProps) => {
           lineHeight: undefined,
         },
         errorText: {
-          paddingHorizontal: theme.spacings.x2,
+          paddingHorizontal: theme.spacings.x12,
         },
       }),
     [focused, hasError, disabled],
