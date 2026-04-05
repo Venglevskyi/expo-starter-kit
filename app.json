@@ -1,14 +1,15 @@
 {
   "expo": {
-    "name": "expo-template", // TODO: Change this to your app name
-    "slug": "expo-template", // TODO: Change this to your app slug (must be unique on Expo servers)
+    "name": "expo-template",
+    "slug": "expo-template",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "expo-template", // TODO: Change this to your app scheme (must be unique on device)
+    "scheme": "expo-template",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "com.anonymous.expotemplate"
     },
     "android": {
       "adaptiveIcon": {
@@ -17,7 +18,8 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.anonymous.expotemplate"
     },
     "web": {
       "output": "static",
@@ -46,7 +48,8 @@
           }
         }
       ],
-      "expo-web-browser"
+      "expo-web-browser",
+      "expo-image"
     ],
     "experiments": {
       "typedRoutes": true,

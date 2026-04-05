@@ -1,15 +1,14 @@
-import type { TextProps } from 'react-native';
+import { type TextProps } from 'react-native';
 
-import type { FontKey } from '@/theme/fonts';
-import type { TypoKey } from '@/theme/typo';
+import { type TypoVariant } from '@/theme/typo';
 
-export type StyleProps = {
-  variant: TypoKey;
-  font: FontKey;
-  color: string;
-  align: 'left' | 'center' | 'right';
-  underline: boolean;
-  flex: boolean;
+export type TextStyleProps = {
+  font?: string;
+  color?: string;
+  flex?: boolean;
+  underline?: boolean;
+  variant: TypoVariant;
+  align?: 'left' | 'center' | 'right';
 };
 
-export type Props = TextProps & Partial<StyleProps>;
+export type Props = TextProps & TextStyleProps;

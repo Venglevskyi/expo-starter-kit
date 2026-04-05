@@ -1,29 +1,48 @@
 import { Text } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-import { theme } from '@/theme';
-import { type Props } from './types';
-import { useStyles } from './useStyles';
+import type { Props } from './types';
 
 export const Typography = ({
-  variant = 'bodyMedium',
-  font = 'regular',
-  color = theme.colors.text.primary,
+  font,
+  style,
+  color,
+  variant,
+  flex = false,
   align = 'left',
   underline = false,
-  flex = false,
-  style,
   ...rest
 }: Props) => {
-  const { styles } = useStyles({
-    variant,
-    font,
-    color,
-    align,
-    underline,
-    flex,
-  });
+  styles.useVariants({ variant, align, underline, flex });
 
-  return <Text {...rest} style={[styles.text, style]} />;
+  return <Text {...rest} style={[styles.text, styles.dynamic(color, font), style]} />;
 };
 
 export default Typography;
+
+const styles = StyleSheet.create((theme) => ({
+  text: {
+    color: theme.colors.text.primary,
+    includeFontPadding: false,
+    variants: {
+      variant: theme.typo,
+      align: {
+        left: { textAlign: 'left' },
+        center: { textAlign: 'center' },
+        right: { textAlign: 'right' },
+      },
+      underline: {
+        true: { textDecorationLine: 'underline' },
+        false: {},
+      },
+      flex: {
+        true: { flex: 1 },
+        false: {},
+      },
+    },
+  },
+  dynamic: (color?: string, font?: string) => ({
+    ...(color !== undefined && { color }),
+    ...(font !== undefined && { fontFamily: font }),
+  }),
+}));

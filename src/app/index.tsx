@@ -1,29 +1,41 @@
-import { View, StyleSheet } from 'react-native';
+import { useRef } from 'react';
+import { TextInput, View } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-import AppleButton, { APPLE_BUTTON_LABELS } from '@/components/AppleButton';
-import GoogleButton, {
-  GOOGLE_BUTTON_SHAPES,
+import AppleButton from '@/components/AppleButton';
+import Button from '@/components/Button';
+import GoogleButton from '@/components/GoogleButton';
+import Input from '@/components/Input';
+import {
+  APPLE_BUTTON_LABELS,
   GOOGLE_BUTTON_LABELS,
+  GOOGLE_BUTTON_SHAPES,
   GOOGLE_BUTTON_TYPES,
-} from '@/components/GoogleButton';
-import Typography from '@/components/Typography';
+} from '@/constants';
 
 export default function Index() {
+  const passwordRef = useRef<TextInput>(null);
+
   return (
     <View style={styles.container}>
       <View style={styles.buttons}>
+        <Input
+          placeholder="Email"
+          returnKeyType="next"
+          onSubmitEditing={() => passwordRef.current?.focus()}
+        />
+        <Input ref={passwordRef} placeholder="Password" showSecureToggle returnKeyType="done" />
+
         <GoogleButton
-          type={GOOGLE_BUTTON_TYPES.light}
-          shape={GOOGLE_BUTTON_SHAPES.rounded}
-          label={GOOGLE_BUTTON_LABELS.signIn}
+          type={GOOGLE_BUTTON_TYPES.LIGHT}
+          shape={GOOGLE_BUTTON_SHAPES.ROUNDED}
+          label={GOOGLE_BUTTON_LABELS.SIGN_IN}
           onPress={async () => {}}
         />
-        <AppleButton label={APPLE_BUTTON_LABELS.signIn} onPress={async () => {}} />
-      </View>
+        <AppleButton label={APPLE_BUTTON_LABELS.SIGN_IN} onPress={async () => {}} />
 
-      <Typography variant="bodyMedium" font="medium">
-        Expo Starter Kit
-      </Typography>
+        <Button label="Get Started" fullWidth />
+      </View>
     </View>
   );
 }
