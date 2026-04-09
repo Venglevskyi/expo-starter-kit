@@ -21,6 +21,7 @@ module.exports = defineConfig([
       // React
       'react/react-in-jsx-scope': 'off',
       'react/jsx-uses-react': 'off',
+      'react/jsx-no-leaked-render': ['error', { validStrategies: ['ternary', 'coerce'] }],
 
       // Hooks
       'react-hooks/exhaustive-deps': 'warn',

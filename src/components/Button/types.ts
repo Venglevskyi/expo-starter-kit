@@ -23,4 +23,5 @@ export type Props = Omit<CustomPressableProps, 'style' | 'children'> & {
   rightIcon?: React.ReactNode;
   style?: ViewStyle;
   labelStyle?: TextStyle;
+  onPress: () => void;
 };

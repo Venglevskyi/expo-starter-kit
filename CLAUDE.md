@@ -67,3 +67,13 @@ Project-specific Claude skills are available in `.claude/skills/`. Use the `Skil
 - **expo-ui-swift-ui / expo-ui-jetpack-compose** — native platform UI components
 - **use-dom** — running web code in webview on native
 - **upgrading-expo** — SDK version upgrades
+- **rn-best-practice** - React Native and Expo best practices for building performant mobile apps
+
+## Rules
+
+Project rules are stored in `.claude/rules/`. These are **mandatory** constraints that apply to all code changes. Claude must validate all output against these rules
+
+## Execution Protocol
+
+1. **Validation:** Before presenting any solution, check against `./claude/rules/`.
+2. **Context:** If a task matches a specific Skill (e.g., performance), load the relevant skill from `./claude/skills/`.

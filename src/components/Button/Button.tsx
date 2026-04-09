@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 import { PressableScale } from 'pressto';
@@ -7,7 +6,7 @@ import Typography from '../Typography';
 
 import { ButtonSize, ButtonVariant, type Props } from './types';
 
-export const Button: FC<Props> = ({
+export const Button = ({
   label,
   variant = ButtonVariant.Primary,
   size = ButtonSize.Md,
@@ -18,8 +17,9 @@ export const Button: FC<Props> = ({
   rightIcon,
   style,
   labelStyle,
+  onPress,
   ...rest
-}) => {
+}: Props) => {
   const isDisabled = disabled || loading;
 
   styles.useVariants({ variant, size, fullWidth: fullWidth ? 'true' : 'false' });
@@ -28,6 +28,7 @@ export const Button: FC<Props> = ({
     <PressableScale
       enabled={!isDisabled}
       style={[styles.container, disabled && styles.disabled, style]}
+      onPress={onPress}
       {...rest}>
       {leftIcon}
 
@@ -39,7 +40,7 @@ export const Button: FC<Props> = ({
 
       {rightIcon}
 
-      {loading && <ActivityIndicator size="small" style={styles.loader} />}
+      {!!loading && <ActivityIndicator size="small" style={styles.loader} />}
     </PressableScale>
   );
 };
