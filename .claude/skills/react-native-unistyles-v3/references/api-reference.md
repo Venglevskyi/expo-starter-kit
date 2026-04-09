@@ -385,9 +385,9 @@ type Props = { title: string } & ButtonVariants;
 const Button = ({ title, ...variants }: Props) => {
   styles.useVariants(variants);
   return (
-    <TouchableOpacity style={styles.button}>
+    <Pressable style={styles.button}>
       <Text>{title}</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 ```
