@@ -7,6 +7,8 @@
 - **NEVER force push** or run destructive git commands without explicit approval
 - When changes are ready, inform the user and wait for their instruction
 - Always show `git diff` or `git status` to let the user review before committing
+- **NO CO-AUTHORED-BY TAGS:** Never include "Co-authored-by: Claude..." or any other AI-attribution trailers in commit messages or file footers.
+- Use Conventional Commits (feat, fix, refactor, etc.).
 
 ## Pull Request Descriptions
 

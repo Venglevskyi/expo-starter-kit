@@ -58,16 +58,36 @@ Husky + lint-staged runs ESLint fix and Prettier on staged `.ts/.tsx/.js/.jsx` f
 Project-specific Claude skills are available in `.claude/skills/`. Use the `Skill` tool to invoke them when working on related tasks:
 
 - **react-native-unistyles-v3** — always use when writing or modifying styles
-- **building-native-ui** — UI construction, navigation, animations, tabs, visual effects
-- **native-data-fetching** — network requests, React Query, caching, offline support
-- **expo-dev-client** — building and distributing dev clients
-- **expo-deployment** — deploying to App Store, Play Store, web
-- **expo-api-routes** — creating API routes with Expo Router
-- **expo-cicd-workflows** — EAS workflow YAML files
-- **expo-ui-swift-ui / expo-ui-jetpack-compose** — native platform UI components
-- **use-dom** — running web code in webview on native
-- **upgrading-expo** — SDK version upgrades
 - **rn-best-practice** - React Native and Expo best practices for building performant mobile apps
+
+## External skills via plugins
+
+### Expo Skills
+
+Required for EAS, SDK management, and Expo-specific development tasks. Run these commands in the terminal:
+
+```bash
+/plugin marketplace add expo/skills
+/plugin install expo
+```
+
+### Software Mansion Skills
+
+Add this skill to give your AI coding agent accurate, current guidance for Software Mansion's React Native libraries: Reanimated, Gesture Handler, React Native SVG, ExecuTorch, Audio API, and more.
+Run these commands in the terminal:
+
+```bash
+/plugin marketplace add software-mansion-labs/skills
+/plugin install skills@swmansion
+/reload-plugins
+```
+
+**Internal Instruction for Claude:**
+You are operating in an environment that relies on the `expo` and `swmansion` plugins.
+
+1. **Check Status**: Before performing tasks related to build, deploy, and debug Expo and React Native apps accurately and efficiently or Gesture Handler, React Native SVG, ExecuTorch, Audio API, and more verify if these tools are available.
+2. **Prompt User**: If the tools are missing, explicitly ask the user to run the installation commands listed above.
+3. **Avoid Fallbacks**: Do not attempt to guess native configurations if the specialized skills from these plugins can provide accurate data.
 
 ## Rules
 
@@ -75,5 +95,7 @@ Project rules are stored in `.claude/rules/`. These are **mandatory** constraint
 
 ## Execution Protocol
 
-1. **Validation:** Before presenting any solution, check against `./claude/rules/`.
-2. **Context:** If a task matches a specific Skill (e.g., performance), load the relevant skill from `./claude/skills/`.
+1. Check `.claude/rules/`
+2. Identify relevant Skill
+3. Follow existing patterns in the codebase
+4. Only then implement solution
