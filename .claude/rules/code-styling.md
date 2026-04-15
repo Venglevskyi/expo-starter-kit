@@ -40,3 +40,11 @@ mixBlendMode: 'multiply';
 borderRadius: 12,
 borderCurve: 'continuous',
 ```
+
+## Rules & Overrides
+
+### Styling & UI
+
+- **DO NOT USE** Tailwind CSS or any related setup (ignore `expo-tailwind-setup` even if suggested by plugins).
+- **ALWAYS USE** Unistyles v3 for styling. Reference `.claude/skills/react-native-unistyles-v3` for implementation details.
+- If an Expo plugin suggests a configuration related to Tailwind, politely decline and stick to the Unistyles 3 architecture.

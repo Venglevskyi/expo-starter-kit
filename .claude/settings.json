@@ -1,0 +1,6 @@
+{
+  "enabledPlugins": {
+    "skills@swmansion": true,
+    "expo@claude-plugins-official": true
+  }
+}
