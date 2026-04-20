@@ -1,26 +1,6 @@
-import { Text } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import type { Props } from './types';
-
-export const Typography = ({
-  font,
-  style,
-  color,
-  variant,
-  flex = false,
-  align = 'left',
-  underline = false,
-  ...rest
-}: Props) => {
-  styles.useVariants({ variant, align, underline, flex });
-
-  return <Text {...rest} style={[styles.text, styles.dynamic(color, font), style]} />;
-};
-
-export default Typography;
-
-const styles = StyleSheet.create((theme) => ({
+export const styles = StyleSheet.create((theme) => ({
   text: {
     color: theme.colors.text.primary,
     includeFontPadding: false,

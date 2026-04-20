@@ -1,12 +1,12 @@
 import { forwardRef, useCallback, useState } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
-import { StyleSheet, useUnistyles } from 'react-native-unistyles';
+import { useUnistyles } from 'react-native-unistyles';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-import Typography from '../Typography';
+import Typography from '@/components/typography';
 
-import { INPUT_HEIGHT } from '@/constants/sizes';
 import { type Props } from './types';
+import { styles } from './input.styles';
 
 export const Input = forwardRef<TextInput, Props>(
   (
@@ -61,11 +61,11 @@ export const Input = forwardRef<TextInput, Props>(
 
     return (
       <View style={[styles.container, containerStyle]}>
-        {label && (
+        {label ? (
           <Typography variant="bodySmall" color={theme.colors.text.muted}>
             {label}
           </Typography>
-        )}
+        ) : null}
 
         <View style={[styles.field, style]}>
           {leftIcon}
@@ -82,7 +82,7 @@ export const Input = forwardRef<TextInput, Props>(
             {...rest}
           />
 
-          {showSecureToggle && (
+          {showSecureToggle ? (
             <Pressable onPress={toggleSecure} hitSlop={8}>
               <MaterialCommunityIcons
                 name={secureHidden ? 'eye-off-outline' : 'eye-outline'}
@@ -90,19 +90,19 @@ export const Input = forwardRef<TextInput, Props>(
                 color={theme.colors.text.muted}
               />
             </Pressable>
-          )}
+          ) : null}
 
           {rightIcon}
         </View>
 
-        {(error || helperText) && (
+        {error || helperText ? (
           <Typography
             variant="bodySmall"
             color={error ? theme.colors.accent.default : theme.colors.text.muted}
             style={styles.errorText}>
             {error ?? helperText}
           </Typography>
-        )}
+        ) : null}
       </View>
     );
   },
@@ -111,45 +111,3 @@ export const Input = forwardRef<TextInput, Props>(
 Input.displayName = 'Input';
 
 export default Input;
-
-const styles = StyleSheet.create((theme) => ({
-  container: {
-    gap: theme.spacings.x4,
-    variants: {
-      disabled: {
-        true: { opacity: 0.4 },
-        false: { opacity: 1 },
-      },
-    },
-  },
-  field: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: INPUT_HEIGHT,
-    borderRadius: theme.radius.md,
-    borderWidth: 1,
-    backgroundColor: theme.colors.background,
-    paddingHorizontal: theme.spacings.x8,
-    gap: theme.spacings.x2,
-    overflow: 'hidden',
-    variants: {
-      border: {
-        error: { borderColor: theme.colors.accent.default },
-        focused: { borderColor: theme.colors.brand.default },
-        idle: { borderColor: theme.colors.border.default },
-      },
-    },
-  },
-  input: {
-    flex: 1,
-    ...theme.typo.bodyMedium,
-    fontFamily: theme.fonts.poppinsRegular,
-    color: theme.colors.text.primary,
-    lineHeight: undefined,
-    textAlignVertical: 'center',
-    includeFontPadding: false,
-  },
-  errorText: {
-    paddingHorizontal: theme.spacings.x12,
-  },
-}));
