@@ -1,12 +1,13 @@
 import React from 'react';
 import { PressableScale } from 'pressto';
 import { ActivityIndicator, View } from 'react-native';
-import { StyleSheet, useUnistyles } from 'react-native-unistyles';
+import { useUnistyles } from 'react-native-unistyles';
 
 import AppleIcon from '@/assets/icons/apple_icon.svg';
-import Typography from '@/components/Typography';
+import Typography from '@/components/typography';
 
 import { type Props } from './types';
+import { styles } from './apple-button.styles';
 import { APPLE_BUTTON_DIMENSIONS } from '@/constants';
 
 // https://developer.apple.com/design/human-interface-guidelines/sign-in-with-apple
@@ -46,18 +47,3 @@ const AppleButton = ({
 };
 
 export default AppleButton;
-
-const styles = StyleSheet.create((theme) => ({
-  wrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: theme.radius.full,
-  },
-  container: {
-    paddingHorizontal: theme.spacings.x16,
-    flexDirection: 'row',
-    gap: APPLE_BUTTON_DIMENSIONS.GAP,
-    alignItems: 'center',
-  },
-}));
