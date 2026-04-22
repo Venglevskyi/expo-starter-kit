@@ -1,14 +1,23 @@
-import { KeyboardProvider } from 'react-native-keyboard-controller';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Stack } from 'expo-router';
 
+import { useIsAuthenticated } from '@/features/auth';
+import { RootProviders } from '@/providers';
+
 const RootLayout = () => {
+  const isAuthenticated = useIsAuthenticated();
+
   return (
-    <KeyboardProvider>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Stack />
-      </GestureHandlerRootView>
-    </KeyboardProvider>
+    <RootProviders>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Protected guard={isAuthenticated}>
+          <Stack.Screen name="(main)" />
+        </Stack.Protected>
+
+        <Stack.Protected guard={!isAuthenticated}>
+          <Stack.Screen name="(auth)" />
+        </Stack.Protected>
+      </Stack>
+    </RootProviders>
   );
 };
 

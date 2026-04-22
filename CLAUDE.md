@@ -44,6 +44,7 @@ No test runner is configured.
 - **State Architecture:** All `./claude/rules/state-*.md`
 - **Navigation:** All `./claude/rules/navigation-*.md`
 - **Monorepo:** All `./claude/rules/monorepo-*.md`
+- **Workflow & Project Standards** `./claude/rules/workflow.md`
 
 ### 🎨 Styling: react-native-unistyles v3
 

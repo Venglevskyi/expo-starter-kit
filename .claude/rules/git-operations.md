@@ -15,5 +15,5 @@
 - **NEVER mention AI tools** (Claude, Copilot, Gemini, etc.) in PR title or body
 - **NEVER include change statistics** (file count, lines added/removed)
 - **NEVER add test plan checklists** — there is no QA team to execute them
-- Keep PR descriptions focused on **what** changed and **why**
+- Keep PR descriptions focused on **what** changed and **why**. **Always** format the description/body as a bulleted or numbered list.
 - Avoid technical jargon or implementation details in the PR description
