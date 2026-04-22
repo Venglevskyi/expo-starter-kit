@@ -2,7 +2,7 @@
 
 ## Architecture Overview
 
-This project follows a **Flat-Modular** architecture to ensure scalability and AI-readiness.
+This project follows a **Flat-Modular** architecture to ensure scalability and AI-readiness. The core idea is that features are self-contained modules that provide ready-to-use screens to the router.
 
 - **src/api/**: Global networking setup (Axios client, QueryClient config).
 - **src/app/**: Expo Router navigation. Contains only routes and root layouts.
@@ -10,11 +10,15 @@ This project follows a **Flat-Modular** architecture to ensure scalability and A
 - **src/components/**: Shared UI library. FLAT structure. No subdirectories.
 - **src/constants/**: Static configuration values and hardcoded strings.
 - **src/features/**: Domain-driven modules. Each module is self-contained (api, components, hooks, store).
+  - `[feature]/screens/`: Entry point components (e.g., `sign-in.tsx`, `settings.tsx`, `profile.tsx`).
+  - `[feature]/hooks/`: Business logic, validation, and state coordination (Headless Logic).
+  - `[feature]/store/`: Feature-specific state (Zustand).
+  - `[feature]/api/`: Feature-specific data fetching (TanStack Query).
+  - `[feature]/components/`: Internal UI components used _exclusively_ within this feature.
 - **src/hooks/**: Global, cross-feature utility hooks (e.g., `useDebounce`, `useAppState`).
 - **src/localization/**: i18n dictionaries and translation setup.
 - **src/plugins/**: Expo Config Plugins for native module configuration.
 - **src/providers/**: Global context providers and library wrappers (e.g., QueryProvider, AuthProvider). Use this to keep `app/_layout.tsx` clean.
-- **src/screens/**: Page orchestrators. Compose features and shared components. No direct business logic.
 - **src/services/**: External integrations (MMKV, SecureStore, Analytics, Firebase etc.).
 - **src/theme/**: Unistyles 3 design system.
   - `unistyles.ts`: Global registry and configuration.
@@ -35,9 +39,9 @@ This project follows a **Flat-Modular** architecture to ensure scalability and A
 
 ### Route Isolation
 
-Files inside `app/` MUST ONLY contain a single-line re-export of a screen from `src/screens`.
+Files inside `app/` MUST ONLY contain a single-line re-export of a screen from `@/[features]/screens`.
 
-- **Standard Syntax**: `export { default } from '@/screens/screen-name';`
+- **Standard Syntax**: `export { default } from '@/[features]/screens/[ScreenName]';`
 - **Alternative (if layout is needed)**: Use a minimal functional component.
 - **Prohibited**: Do not write JSX, Unistyles, or any business logic inside `app/`. The `app/` folder is strictly for defining the URL structure.
 - **Server Routes**: Use `+api.ts` for backend logic (e.g., webhooks, proxying requests, server-side data processing).
@@ -46,7 +50,7 @@ _Example:_
 
 ```tsx
 // app/(auth)/sign-in.tsx
-export { default } from '@/screens/sign-in';
+export { default } from '@/feature/screens/sign-in';
 ```
 
 ### Colocation Principle
@@ -57,62 +61,16 @@ export { default } from '@/screens/sign-in';
 
 ### Dependency Direction
 
-- **Rule**: Higher-level layers can import from lower-level layers, never vice-versa.
-- **Valid**: `app/` -> `src/screens` -> `src/features` -> `src/components`.
-- **Invalid**: `src/components` importing from `src/features`.
-- **Invalid**: `src/features` importing from `src/screens`.
+- **Allowed**: `app/` -> `@/[features]` -> `@//components`.
+- **Forbidden**: `@/components` importing from `@/features`.
+
+### Cross-Feature Communication
+
+- **Rule**: If Feature A needs to use Logic/API from Feature B, it MUST import it via the Public API (`src/features/B/index.ts`).
+- **Restriction**: Deep imports (e.g., `@/features/B/api/internal-func`) are STRCITLY FORBIDDEN to prevent coupling.
+- **Shared Logic**: If an API request is used by >3 features and has no clear owner, move it to `@/api`.
 
 ### Single Source of Truth for API
 
-- All network requests MUST use the centralized client from `src/api/client.ts`.
+- All network requests MUST use the centralized client from `@/api/client.ts`.
 - Avoid direct `fetch` or `axios` calls without the configured client to ensure interceptors and auth headers are always applied.
-
-### Imports & Path Aliasing
-
-- **Rule**: ALWAYS use the `@/` alias for all internal imports.
-- **Root**: `@/` points to the `src/` directory (and sometimes `app/` depending on tsconfig).
-- **Prohibited**: Do not use relative paths (e.g., `../../components`).
-
-### Naming Conventions
-
-- **Rule**: ALWAYS use `kebab-case` for all files and directories.
-- **Consistency**: This aligns with Expo SDK 55 standards and ensures cross-platform compatibility.
-- **Examples**:
-  - `src/screens/home-screen.tsx` (instead of `HomeScreen.tsx`)
-  - `src/features/auth/login-form.tsx`
-  - `src/theme/light-theme.ts`
-  - `src/components/primary-button.tsx`
-- **Special Suffixes**:
-  - `+api.ts`: Reserved for Expo API Routes.
-  - `+html.tsx`: Reserved for custom root HTML (Expo Web).
-  - `+not-found.tsx`: Reserved for 404 screens.
-  - `.styles.ts`: Reserved for Unistyles/StyleSheet files.
-
-### Arrow Function Pattern
-
-**Rule**: ALWAYS use arrow functions for all functional components and utility functions.
-
-**Correct:**
-
-```tsx
-const SomeComponent = () => {
-  return <Slot />;
-};
-
-export default SomeComponent;
-
-const someUtility = () => {
-  // logic here
-};
-```
-
-**Incorrect:**
-
-```tsx
-export default function SomeComponent() {
-  return <Slot />;
-}
-function someUtility() {
-  // logic here
-}
-```
