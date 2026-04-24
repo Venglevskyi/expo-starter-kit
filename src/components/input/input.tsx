@@ -11,8 +11,8 @@ import { useUnistyles } from 'react-native-unistyles';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import Typography from '@/components/typography';
-import { INPUT_HEIGHT } from '@/constants/sizes';
 
+import { HIT_SLOP, INPUT_HEIGHT } from '@/constants/sizes';
 import { type Props } from './types';
 import { styles } from './input.styles';
 
@@ -152,7 +152,7 @@ export const Input = ({
         </View>
 
         {showSecureToggle ? (
-          <Pressable hitSlop={8} onPress={toggleSecure}>
+          <Pressable hitSlop={HIT_SLOP} onPress={toggleSecure}>
             <MaterialCommunityIcons
               size={20}
               color={theme.colors.text.muted}
