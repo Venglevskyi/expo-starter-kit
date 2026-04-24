@@ -3,10 +3,9 @@ import { View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { withUnistyles } from 'react-native-unistyles';
 
+import { DEFAULT_KEYBOARD_OFFSET } from '@/constants';
 import type { Props } from './types';
 import { styles } from './layout.styles';
-
-const DEFAULT_KEYBOARD_OFFSET = 16;
 
 const ThemedLinearGradient = withUnistyles(LinearGradient, (theme) => ({
   colors: theme.colors.background.gradient,
