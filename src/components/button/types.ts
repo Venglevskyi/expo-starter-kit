@@ -12,7 +12,7 @@ export enum ButtonSize {
   Sm = 'sm',
 }
 
-export type Props = Omit<CustomPressableProps, 'style' | 'children'> & {
+export type Props = Omit<CustomPressableProps, 'style' | 'children' | 'onPress'> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
   fullWidth?: boolean;
@@ -23,5 +23,5 @@ export type Props = Omit<CustomPressableProps, 'style' | 'children'> & {
   rightIcon?: React.ReactNode;
   style?: ViewStyle;
   labelStyle?: TextStyle;
-  onPress: () => void;
+  onPress: () => void | Promise<void>;
 };

@@ -1,44 +1,104 @@
+import { Controller } from 'react-hook-form';
 import { View } from 'react-native';
+import { PressableScale } from 'pressto';
 
-import Button, { ButtonVariant } from '@/components/button';
+import AppleButton from '@/components/apple-button';
+import Button from '@/components/button';
+import GoogleButton from '@/components/google-button';
+import Input from '@/components/input';
 import Layout from '@/components/layout';
 import Typography from '@/components/typography';
-import { Role, type User } from '@/types';
 
-import { useAuthStore } from '../../store/auth.store';
+import { APPLE_BUTTON_LABELS, GOOGLE_BUTTON_LABELS, GOOGLE_BUTTON_SHAPES } from '@/constants';
+import { useSignInForm } from '@/features/auth/hooks';
 
 import { styles } from './sign-in.styles';
 
-const MOCK_USER: User = {
-  id: 'mock-user-1',
-  email: 'user@example.com',
-  name: 'Demo User',
-  role: Role.User,
-};
-
-const MOCK_ADMIN: User = {
-  id: 'mock-admin-1',
-  email: 'admin@example.com',
-  name: 'Demo Admin',
-  role: Role.Admin,
-};
-
 const SignIn = () => {
-  const signIn = useAuthStore((state) => state.signIn);
+  const { control, isValid, isSubmitting, onSignIn, onSocialAuth, onForgotPassword } =
+    useSignInForm();
 
   return (
-    <Layout contentContainerStyle={styles.content}>
-      <Typography variant="headlineSmall" align="center">
-        Sign In
-      </Typography>
-      <View style={styles.actions}>
-        <Button label="Sign in as User" onPress={() => signIn(MOCK_USER)} />
+    <Layout backgroundColor="gradient" contentContainerStyle={styles.content}>
+      <View style={styles.form}>
+        <View style={styles.fields}>
+          <Controller
+            control={control}
+            name="email"
+            render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
+              <Input
+                label="Email"
+                value={value}
+                returnKeyType="next"
+                autoComplete="email"
+                autoCapitalize="none"
+                error={error?.message}
+                keyboardType="email-address"
+                textContentType="emailAddress"
+                onBlur={onBlur}
+                onChangeText={onChange}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
+              <Input
+                value={value}
+                secureTextEntry
+                label="Password"
+                showSecureToggle
+                returnKeyType="done"
+                autoCapitalize="none"
+                error={error?.message}
+                autoComplete="password"
+                textContentType="password"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                onSubmitEditing={onSignIn}
+              />
+            )}
+          />
+        </View>
+
+        <PressableScale style={styles.forgotPassword} onPress={onForgotPassword}>
+          <Typography variant="labelMedium" style={styles.forgotPasswordLabel}>
+            Forgot password?
+          </Typography>
+        </PressableScale>
+
         <Button
-          label="Sign in as Admin"
-          variant={ButtonVariant.Secondary}
-          onPress={() => signIn(MOCK_ADMIN)}
+          fullWidth
+          label="Sign In"
+          disabled={!isValid}
+          loading={isSubmitting}
+          onPress={onSignIn}
         />
+
+        <View style={styles.divider}>
+          <View style={styles.dividerLine} />
+          <Typography variant="bodySmall" style={styles.dividerLabel}>
+            or
+          </Typography>
+          <View style={styles.dividerLine} />
+        </View>
+
+        <View style={styles.socialButtons}>
+          <GoogleButton
+            shape={GOOGLE_BUTTON_SHAPES.ROUNDED}
+            label={GOOGLE_BUTTON_LABELS.CONTINUE}
+            onPress={onSocialAuth}
+          />
+          <AppleButton label={APPLE_BUTTON_LABELS.CONTINUE} onPress={onSocialAuth} />
+        </View>
       </View>
+
+      <Typography align="center" variant="bodySmall" style={styles.footer}>
+        By continuing, you agree to our Terms of Service and Privacy Policy. Personal data added
+        here is public by default — refer to our Privacy FAQ to make changes.
+      </Typography>
     </Layout>
   );
 };
