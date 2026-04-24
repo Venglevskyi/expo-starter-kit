@@ -40,7 +40,10 @@ export const palette = {
 // 2. Light Theme
 // ---------------------------------------------------------------------------
 export const light: Colors = {
-  background: '#fafafa',
+  background: {
+    primary: '#fafafa',
+    gradient: [palette.burgundy[200], palette.green[100]],
+  },
   surface: {
     default: palette.neutral.white,
     subtle: palette.neutral[50],
@@ -53,7 +56,9 @@ export const light: Colors = {
     inverse: palette.neutral.white,
   },
   border: {
-    default: palette.neutral[200],
+    default: palette.neutral[600],
+    // Mirrors iOS `quaternarySystemFill` — a subtle neutral that works on light surfaces.
+    subtle: 'rgba(116, 116, 128, 0.18)',
   },
   brand: {
     default: palette.green[700],
@@ -108,7 +113,10 @@ export const light: Colors = {
 // 3. Dark Theme
 // ---------------------------------------------------------------------------
 export const dark: Colors = {
-  background: palette.neutral[900],
+  background: {
+    primary: palette.neutral[900],
+    gradient: [palette.neutral[700], palette.neutral[900]],
+  },
   surface: {
     default: '#2C3135',
     subtle: palette.neutral[800],
@@ -122,6 +130,8 @@ export const dark: Colors = {
   },
   border: {
     default: palette.neutral[800],
+    // Mirrors iOS dark `quaternarySystemFill`.
+    subtle: 'rgba(118, 118, 128, 0.36)',
   },
   brand: {
     default: palette.green[100],
