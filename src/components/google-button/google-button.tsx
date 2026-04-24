@@ -27,9 +27,9 @@ export const GoogleButton = ({
 
   return (
     <PressableScale
-      onPress={onPress}
       enabled={!isLoading}
-      style={[styles.pressable(type, height, width, shape), style]}>
+      style={[styles.pressable(type, height, width, shape), style]}
+      onPress={onPress}>
       {isLoading ? (
         <ActivityIndicator size="small" color={colors.text} />
       ) : (

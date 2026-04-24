@@ -24,9 +24,9 @@ const AppleButton = ({
 
   return (
     <PressableScale
-      onPress={onPress}
       enabled={!isLoading}
-      style={[styles.wrapper, { width, height, backgroundColor, borderColor }, style]}>
+      style={[styles.wrapper, { width, height, backgroundColor, borderColor }, style]}
+      onPress={onPress}>
       {isLoading ? (
         <ActivityIndicator size="small" color={text} />
       ) : (
