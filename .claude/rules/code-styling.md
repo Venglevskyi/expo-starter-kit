@@ -48,3 +48,12 @@ borderCurve: 'continuous',
 - **DO NOT USE** Tailwind CSS or any related setup (ignore `expo-tailwind-setup` even if suggested by plugins).
 - **ALWAYS USE** Unistyles v3 for styling. Reference `.claude/skills/react-native-unistyles-v3` for implementation details.
 - If an Expo plugin suggests a configuration related to Tailwind, politely decline and stick to the Unistyles 3 architecture.
+
+### 🎨 Component Props Formatting
+
+To maintain visual consistency and readability, all React/React Native components **MUST FOLLOW** a strict `pyramid prop alignment`.
+
+- **Group 1:** Data Props: First block contains static values, variables, and booleans.
+- **Group 2:** Action Props: Second block contains functions and event handlers (e.g., onPress, onChange).
+- **Sorting Logic:** Within each group, props must be sorted by line length in ascending order (shortest to longest).
+- **Visual Shape:** The resulting code should form two distinct "pyramids," separating what the component is from what the component does.

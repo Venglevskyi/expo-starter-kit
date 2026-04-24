@@ -1,8 +1,10 @@
+export type BackgroundGradient = readonly [string, string, ...string[]];
+
 export type Colors = {
-  background: string;
+  background: { primary: string; gradient: BackgroundGradient };
   surface: { default: string; subtle: string };
   text: { primary: string; secondary: string; muted: string; placeholder: string; inverse: string };
-  border: { default: string };
+  border: { default: string; subtle: string };
   brand: { default: string; dark: string; light: string };
   action: { default: string; hover: string; light: string };
   accent: { default: string; dark: string; mid: string; light: string };
