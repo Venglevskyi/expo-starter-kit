@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { INPUT_HEIGHT } from '@/constants/sizes';
+import { DEFAULT_HEIGHT } from '@/constants/sizes';
 
 export const styles = StyleSheet.create((theme) => ({
   container: {
@@ -14,7 +14,7 @@ export const styles = StyleSheet.create((theme) => ({
   field: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: INPUT_HEIGHT,
+    height: DEFAULT_HEIGHT,
     borderRadius: theme.radius.md,
     borderCurve: 'continuous',
     borderWidth: 1,

@@ -1,4 +1,5 @@
 import { IS_IOS } from './platform';
+import { DEFAULT_HEIGHT } from './sizes';
 
 // APPLE ================================
 export enum APPLE_BUTTON_LABELS {
@@ -7,11 +8,11 @@ export enum APPLE_BUTTON_LABELS {
   CONTINUE = 'Continue with Apple',
 }
 
-export enum APPLE_BUTTON_DIMENSIONS {
-  HEIGHT = 44,
-  ICON_SIZE = 20,
-  GAP = 8,
-}
+export const APPLE_BUTTON_DIMENSIONS = {
+  HEIGHT: DEFAULT_HEIGHT,
+  ICON_SIZE: 16,
+  GAP: 8,
+} as const;
 
 export enum APPLE_BUTTON_SHAPES {
   ROUNDED = 'rounded',
@@ -36,8 +37,8 @@ export enum GOOGLE_BUTTON_LABELS {
   CONTINUE = 'Continue with Google',
 }
 
-export enum GOOGLE_BUTTON_DIMENSIONS {
-  HEIGHT = IS_IOS ? 44 : 40,
-  ICON_SIZE = 20,
-  GAP = IS_IOS ? 12 : 10,
-}
+export const GOOGLE_BUTTON_DIMENSIONS = {
+  HEIGHT: DEFAULT_HEIGHT,
+  ICON_SIZE: 18,
+  GAP: IS_IOS ? 12 : 10,
+} as const;

@@ -40,7 +40,7 @@ export const GoogleButton = ({
           />
 
           {!isIconOnly && label ? (
-            <Typography variant="titleSmall" font="Roboto-Medium" color={colors.text}>
+            <Typography variant="titleMedium" font="Roboto-Medium" color={colors.text}>
               {label}
             </Typography>
           ) : null}

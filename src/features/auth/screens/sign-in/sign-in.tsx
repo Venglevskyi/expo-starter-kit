@@ -9,7 +9,12 @@ import Input from '@/components/input';
 import Layout from '@/components/layout';
 import Typography from '@/components/typography';
 
-import { APPLE_BUTTON_LABELS, GOOGLE_BUTTON_LABELS, GOOGLE_BUTTON_SHAPES } from '@/constants';
+import {
+  APPLE_BUTTON_LABELS,
+  GOOGLE_BUTTON_LABELS,
+  GOOGLE_BUTTON_SHAPES,
+  IS_IOS,
+} from '@/constants';
 import { useSignInForm } from '@/features/auth/hooks';
 
 import { styles } from './sign-in.styles';
@@ -91,7 +96,9 @@ const SignIn = () => {
             label={GOOGLE_BUTTON_LABELS.CONTINUE}
             onPress={onSocialAuth}
           />
-          <AppleButton label={APPLE_BUTTON_LABELS.CONTINUE} onPress={onSocialAuth} />
+          {IS_IOS ? (
+            <AppleButton label={APPLE_BUTTON_LABELS.CONTINUE} onPress={onSocialAuth} />
+          ) : null}
         </View>
       </View>
 

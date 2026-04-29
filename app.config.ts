@@ -41,6 +41,7 @@ const config: ExpoConfig = {
   ios: {
     icon: './assets/expo.icon',
     bundleIdentifier: env.bundleIdentifier,
+    usesAppleSignIn: true,
   },
   android: {
     package: env.androidPackage,
@@ -81,6 +82,7 @@ const config: ExpoConfig = {
     ],
     'expo-web-browser',
     'expo-image',
+    'expo-apple-authentication',
   ],
   experiments: {
     typedRoutes: true,
