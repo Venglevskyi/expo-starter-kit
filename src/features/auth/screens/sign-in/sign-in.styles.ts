@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native-unistyles';
 
+import { DEFAULT_HEIGHT } from '@/constants/sizes';
+
 export const styles = StyleSheet.create((theme) => ({
   content: {
     paddingHorizontal: theme.spacings.x12,
@@ -36,6 +38,10 @@ export const styles = StyleSheet.create((theme) => ({
   },
   socialButtons: {
     gap: theme.spacings.x8,
+  },
+  appleButton: {
+    width: '100%',
+    height: DEFAULT_HEIGHT,
   },
   footer: {
     color: theme.colors.text.muted,

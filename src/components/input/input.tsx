@@ -12,11 +12,11 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import Typography from '@/components/typography';
 
-import { HIT_SLOP, INPUT_HEIGHT } from '@/constants/sizes';
+import { HIT_SLOP, DEFAULT_HEIGHT } from '@/constants/sizes';
 import { type Props } from './types';
 import { styles } from './input.styles';
 
-const FLOAT_TRANSLATE_Y = -INPUT_HEIGHT / 2;
+const FLOAT_TRANSLATE_Y = -DEFAULT_HEIGHT / 2;
 const FLOAT_SCALE = 0.8;
 const ANIMATION_DURATION = 150;
 const FOCUSED_BORDER_WIDTH = 1.5;

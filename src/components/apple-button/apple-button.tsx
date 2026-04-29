@@ -37,7 +37,7 @@ const AppleButton = ({
             height={APPLE_BUTTON_DIMENSIONS.ICON_SIZE}
           />
 
-          <Typography variant="titleSmall" color={text} font="Roboto-Medium">
+          <Typography variant="titleMedium" color={text} font="Roboto-Medium">
             {label}
           </Typography>
         </View>

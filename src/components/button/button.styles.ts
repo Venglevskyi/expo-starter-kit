@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native-unistyles';
 
+import { DEFAULT_HEIGHT } from '@/constants/sizes';
+
 import { ButtonSize, ButtonVariant } from './types';
 
 export const styles = StyleSheet.create((theme) => ({
@@ -25,12 +27,12 @@ export const styles = StyleSheet.create((theme) => ({
       },
       size: {
         [ButtonSize.Md]: {
-          height: 40,
+          height: DEFAULT_HEIGHT,
           paddingHorizontal: theme.spacings.x4,
           paddingVertical: theme.spacings.x2,
         },
         [ButtonSize.Sm]: {
-          height: 40,
+          height: DEFAULT_HEIGHT,
           paddingHorizontal: theme.spacings.x6,
           paddingVertical: theme.spacings.x4,
         },
