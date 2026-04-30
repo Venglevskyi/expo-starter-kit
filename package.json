@@ -13,7 +13,10 @@
     "deps:check": "npx expo install --check",
     "deps:align": "npx expo install --fix",
     "deps:reset": "rm -rf node_modules pnpm-lock.yaml && pnpm install",
-    "prebuild": "expo prebuild --clean"
+    "prebuild": "expo prebuild --clean",
+    "build:ios": "eas build --platform ios",
+    "build:android": "eas build --platform android",
+    "submit": "eas submit"
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.4.1",
@@ -61,6 +64,7 @@
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
+    "eas-cli": "^18.9.1",
     "eslint": "^9.39.4",
     "eslint-config-expo": "~55.0.0",
     "eslint-config-prettier": "^10.1.8",
