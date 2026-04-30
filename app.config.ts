@@ -30,6 +30,19 @@ const variants: Record<
 
 const env = variants[variant];
 
+const oauthClientIds = {
+  development: {
+    googleWebClientId: process.env.DEV_GOOGLE_WEB_CLIENT_ID ?? '',
+    googleIosClientId: process.env.DEV_GOOGLE_IOS_CLIENT_ID ?? '',
+    googleAndroidClientId: process.env.DEV_GOOGLE_ANDROID_CLIENT_ID ?? '',
+  },
+  production: {
+    googleWebClientId: process.env.GOOGLE_WEB_CLIENT_ID ?? '',
+    googleIosClientId: process.env.GOOGLE_IOS_CLIENT_ID ?? '',
+    googleAndroidClientId: process.env.GOOGLE_ANDROID_CLIENT_ID ?? '',
+  },
+}[variant];
+
 const config: ExpoConfig = {
   name: env.displayName,
   slug: 'expo-starter-kit',
@@ -90,6 +103,10 @@ const config: ExpoConfig = {
   },
   extra: {
     variant,
+    eas: {
+      projectId: '33920df5-c84b-4e79-965a-7161d179aefc',
+    },
+    ...oauthClientIds,
   },
 };
 
