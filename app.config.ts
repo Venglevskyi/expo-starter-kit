@@ -14,17 +14,23 @@ const variants: Record<
     bundleIdentifier: string;
     androidPackage: string;
     displayName: string;
+    iosGoogleServicesFile: string;
+    androidGoogleServicesFile: string;
   }
 > = {
   development: {
     bundleIdentifier: `${BUNDLE_PREFIX}.dev`,
     androidPackage: `${BUNDLE_PREFIX}.dev`,
     displayName: `${APP_NAME} (dev)`,
+    iosGoogleServicesFile: './src/services/firebase/dev/GoogleService-Info.plist',
+    androidGoogleServicesFile: './src/services/firebase/dev/google-services.json',
   },
   production: {
     bundleIdentifier: BUNDLE_PREFIX,
     androidPackage: BUNDLE_PREFIX,
     displayName: APP_NAME,
+    iosGoogleServicesFile: './src/services/firebase/prod/GoogleService-Info.plist',
+    androidGoogleServicesFile: './src/services/firebase/prod/google-services.json',
   },
 };
 
@@ -43,6 +49,17 @@ const oauthClientIds = {
   },
 }[variant];
 
+// "123-abc.apps.googleusercontent.com" → "com.googleusercontent.apps.123-abc"
+// Required by @react-native-google-signin/google-signin to register the
+// OAuth callback URL scheme in Info.plist via its config plugin.
+const reverseGoogleClientId = (clientId: string): string => {
+  if (!clientId) return '';
+  const prefix = clientId.replace(/\.apps\.googleusercontent\.com$/, '');
+  return `com.googleusercontent.apps.${prefix}`;
+};
+
+const googleIosUrlScheme = reverseGoogleClientId(oauthClientIds.googleIosClientId);
+
 const config: ExpoConfig = {
   name: env.displayName,
   slug: 'expo-starter-kit',
@@ -55,9 +72,11 @@ const config: ExpoConfig = {
     icon: './assets/expo.icon',
     bundleIdentifier: env.bundleIdentifier,
     usesAppleSignIn: true,
+    googleServicesFile: env.iosGoogleServicesFile,
   },
   android: {
     package: env.androidPackage,
+    googleServicesFile: env.androidGoogleServicesFile,
     predictiveBackGestureEnabled: false,
     adaptiveIcon: {
       backgroundColor: '#E6F4FE',
@@ -96,6 +115,19 @@ const config: ExpoConfig = {
     'expo-web-browser',
     'expo-image',
     'expo-apple-authentication',
+    'expo-local-authentication',
+    [
+      'expo-build-properties',
+      {
+        ios: {
+          useFrameworks: 'static',
+          forceStaticLinking: ['RNFBApp', 'RNFBAuth', 'RNFBFirestore'],
+        },
+      },
+    ],
+    '@react-native-firebase/app',
+    '@react-native-firebase/auth',
+    ['@react-native-google-signin/google-signin', { iosUrlScheme: googleIosUrlScheme }],
   ],
   experiments: {
     typedRoutes: true,
