@@ -1,49 +1,32 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'expo-router';
+import { toast } from 'sonner-native';
 
-import { Role, type User } from '@/types';
+import { signInWithEmail } from '@/services/firebase';
 import { signInSchema, type SignInFormValues } from '@/utils/validation';
 
-import { useAuthStore } from '../store/auth.store';
-
-const MOCK_USER: User = {
-  id: 'mock-user-1',
-  email: 'user@example.com',
-  name: 'Demo User',
-  role: Role.User,
-};
+import { getReadableAuthErrorMessage } from '../utils/firebase-error-message';
 
 export const useSignInForm = () => {
-  const { push } = useRouter();
-  const signIn = useAuthStore((state) => state.signIn);
-
-  const {
-    control,
-    handleSubmit,
-    formState: { isValid, isSubmitting },
-  } = useForm<SignInFormValues>({
+  const { control, handleSubmit, formState } = useForm<SignInFormValues>({
     resolver: zodResolver(signInSchema),
     mode: 'onTouched',
     defaultValues: { email: '', password: '' },
   });
 
-  const onSignIn = handleSubmit(({ email }) => {
-    signIn({ ...MOCK_USER, email });
+  const onSignIn = handleSubmit(async ({ email, password }) => {
+    try {
+      const wasAccountCreated = await signInWithEmail(email, password);
+      if (wasAccountCreated) toast.success('Account created. Welcome!');
+    } catch (error) {
+      toast.error(getReadableAuthErrorMessage(error));
+    }
   });
-
-  const onSocialAuth = async () => {
-    // TODO: wire OAuth providers.
-  };
-
-  const onForgotPassword = () => push('/forgot-password');
 
   return {
     control,
-    isValid,
-    isSubmitting,
     onSignIn,
-    onSocialAuth,
-    onForgotPassword,
+    isValid: formState.isValid,
+    isSubmitting: formState.isSubmitting,
   };
 };
