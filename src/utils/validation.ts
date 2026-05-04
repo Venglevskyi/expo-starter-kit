@@ -4,10 +4,8 @@ export const emailSchema = z.email('Enter a valid email address');
 
 export const passwordSchema = z
   .string()
-  .min(8, 'Must be at least 8 characters')
-  .regex(/[A-Z]/, 'Must contain an uppercase letter')
-  .regex(/[0-9]/, 'Must contain a digit')
-  .regex(/[^A-Za-z0-9]/, 'Must contain a symbol');
+  .min(8, 'Must be at least 6 characters')
+  .regex(/[0-9]/, 'Must contain a digit');
 
 export const signInSchema = z.object({
   email: emailSchema,

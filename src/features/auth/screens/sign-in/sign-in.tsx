@@ -1,6 +1,7 @@
 import { Controller } from 'react-hook-form';
 import { View } from 'react-native';
 import { PressableScale } from 'pressto';
+import { useRouter } from 'expo-router';
 
 import AppleButton from '@/components/apple-button';
 import Button from '@/components/button';
@@ -15,13 +16,21 @@ import {
   GOOGLE_BUTTON_SHAPES,
   IS_IOS,
 } from '@/constants';
-import { useSignInForm } from '@/features/auth/hooks';
+import { useSignInForm, useSocialSignIn } from '@/features/auth';
 
 import { styles } from './sign-in.styles';
 
 const SignIn = () => {
-  const { control, isValid, isSubmitting, onSignIn, onSocialAuth, onForgotPassword } =
-    useSignInForm();
+  const { push } = useRouter();
+  const { control, isValid, isSubmitting, onSignIn } = useSignInForm();
+  const {
+    signInWithApple,
+    signInWithGoogle,
+    pendingProvider,
+    isLoading: isSocialLoading,
+  } = useSocialSignIn();
+
+  const onForgotPassword = () => push('/forgot-password');
 
   return (
     <Layout backgroundColor="gradient" contentContainerStyle={styles.content}>
@@ -77,7 +86,7 @@ const SignIn = () => {
         <Button
           fullWidth
           label="Sign In"
-          disabled={!isValid}
+          disabled={!isValid || isSubmitting || isSocialLoading}
           loading={isSubmitting}
           onPress={onSignIn}
         />
@@ -94,10 +103,15 @@ const SignIn = () => {
           <GoogleButton
             shape={GOOGLE_BUTTON_SHAPES.ROUNDED}
             label={GOOGLE_BUTTON_LABELS.CONTINUE}
-            onPress={onSocialAuth}
+            isLoading={pendingProvider === 'google'}
+            onPress={signInWithGoogle}
           />
           {IS_IOS ? (
-            <AppleButton label={APPLE_BUTTON_LABELS.CONTINUE} onPress={onSocialAuth} />
+            <AppleButton
+              label={APPLE_BUTTON_LABELS.CONTINUE}
+              isLoading={pendingProvider === 'apple'}
+              onPress={signInWithApple}
+            />
           ) : null}
         </View>
       </View>

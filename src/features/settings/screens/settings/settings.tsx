@@ -4,14 +4,13 @@ import { View } from 'react-native';
 import Button, { ButtonVariant } from '@/components/button';
 import Layout from '@/components/layout';
 import Typography from '@/components/typography';
-import { useAuthStore, useIsAdmin } from '@/features/auth';
+import { signOut, useIsAdmin } from '@/features/auth';
 
 import { styles } from './settings.styles';
 
 const Settings = () => {
   const { push } = useRouter();
   const isAdmin = useIsAdmin();
-  const signOut = useAuthStore((state) => state.signOut);
 
   return (
     <Layout contentContainerStyle={styles.content}>
