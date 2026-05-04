@@ -19,3 +19,16 @@ export const resetAllStores = () => {
     resetFn();
   });
 };
+
+type PersistMigration<TState> = (state: any) => TState;
+
+export const createPersistMigrator = <TState>(migrations: PersistMigration<TState>[]) => ({
+  version: migrations.length,
+  migrate: (state: unknown, fromVersion: number): TState => {
+    let nextState = state as TState;
+    for (let migrationIndex = fromVersion; migrationIndex < migrations.length; migrationIndex++) {
+      nextState = migrations[migrationIndex](nextState);
+    }
+    return nextState;
+  },
+});
