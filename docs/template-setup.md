@@ -41,6 +41,11 @@ extra: {
 
 ## 2. Firebase native config
 
+> For a step-by-step Firebase Console + Google Cloud + Apple runbook with
+> exact field names and screenshots-worth of detail, see
+> [`docs/firebase-setup.md`](./firebase-setup.md). The summary below covers
+> the minimum.
+
 Firebase Auth and Firestore are wired through `@react-native-firebase`, which
 needs platform config files generated in the Firebase Console.
 

@@ -47,5 +47,7 @@ full architecture and coding rules.
 
 - [`docs/template-setup.md`](./docs/template-setup.md) — what to change when
   forking the template.
-- [`docs/superpowers/specs/`](./docs/superpowers/specs) — feature specs
-  (currently: Firebase auth flow, Firebase external setup runbook).
+- [`docs/firebase-setup.md`](./docs/firebase-setup.md) — step-by-step
+  Firebase Console, Google Cloud, and Apple Developer runbook.
+- [`docs/superpowers/specs/`](./docs/superpowers/specs) — internal feature
+  specs (currently: Firebase auth flow design).

@@ -16,7 +16,7 @@ https://console.firebase.google.com → **Add project** → name it
 
 - Project Settings → **Add app** → iOS
 - Apple bundle ID: `com.expostarter.app.dev`
-- Download `GoogleService-Info.plist` → save to `firebase/dev/`
+- Download `GoogleService-Info.plist` → save to `src/services/firebase/dev/`
 - Skip Firebase's "Add Firebase SDK" / "Initialize" steps — those are for
   native Xcode projects. Click **Next → Continue to console**.
 
@@ -26,7 +26,7 @@ https://console.firebase.google.com → **Add project** → name it
 - Android package name: `com.expostarter.app.dev`
 - Leave the **Debug signing certificate SHA-1** field empty for now (we add
   it in §1d after prebuild)
-- Download `google-services.json` → save to `firebase/dev/`
+- Download `google-services.json` → save to `src/services/firebase/dev/`
 - Skip the "Add Firebase SDK" step. Click **Next → Continue to console**.
 
 ### 1c. Enable Authentication providers
@@ -63,7 +63,7 @@ Copy the **debug** `SHA1`. Add it in two places:
 
 After adding, **re-download `google-services.json`** from Firebase (it now
 contains the OAuth client linked to the SHA-1) → replace
-`firebase/dev/google-services.json`.
+`src/services/firebase/dev/google-services.json`.
 
 > Release SHA-1 only matters for signed release builds (Play Store / EAS
 > production). Defer until production hardening.
@@ -135,7 +135,7 @@ DEV_GOOGLE_ANDROID_CLIENT_ID=zzz.apps.googleusercontent.com
 ## 5. Verify
 
 ```bash
-ls firebase/dev/
+ls src/services/firebase/dev/
 # expects: GoogleService-Info.plist  google-services.json
 ```
 
